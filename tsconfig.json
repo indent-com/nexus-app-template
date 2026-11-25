@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2023",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "lib": ["es2024", "dom", "dom.iterable"],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "types": []
+  },
+  "include": ["server", "ui/src", "*.d.ts"]
+}

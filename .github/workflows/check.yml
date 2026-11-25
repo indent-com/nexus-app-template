@@ -1,0 +1,27 @@
+# Typechecks and builds the starter against the newest published SDK, so drift fails here
+# before anyone runs `indent app init`.
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 15 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm install
+      - run: npm install --no-save @indent-com/nexus-sdk@latest
+      - run: npm run typecheck
+      - run: npx nexus-sdk build
