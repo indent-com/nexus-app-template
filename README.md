@@ -14,7 +14,7 @@ creates a new app from this starter,
 indent app dev                # serve the page and the API at http://localhost:5173
 indent app db "SELECT * FROM notes"
 indent app types              # write integrations.d.ts after you add an integration
-indent app build              # typecheck and bundle into dist/
+indent app build              # bundle into dist/ (it does not typecheck)
 npm run typecheck
 ```
 
