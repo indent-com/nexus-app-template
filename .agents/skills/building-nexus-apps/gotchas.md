@@ -35,6 +35,11 @@ Each entry: what you see, then what to do.
 
 ## Build
 
+- **Every query and mutation must return a JSON type.** An `any` output, such as a bare
+  `JSON.parse(...)`, fails that entrypoint's build with `output is any, which is not a JSON type`
+  and every call to it returns `build_failed`. Declare the return type and cast decoded values.
+- **`indent app build` doesn't typecheck.** Run `npm run typecheck` too.
+
 - **The UI can import server types but not values.** Repeat a constant in `ui/src`, or return it
   from a query.
 - **Each dev server uses about 1 GB.** Stop the ones you are done with.
