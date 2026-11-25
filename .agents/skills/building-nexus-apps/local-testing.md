@@ -40,7 +40,8 @@ curl -s -X POST localhost:5173/api/notes/addNote \
 - 200 with the bare return value.
 - 400 `invalid_input` when the input doesn't match the type, including extra properties.
 - 404 for an unknown export, 405 for the wrong verb.
-- Failures are `{"error":{"name","message","code"?}}`.
+- Failures are `{"error":{"name","message","code"?,"stack"?}}`. The stack points at your files
+  in `server/`.
 
 ## Database
 
@@ -58,6 +59,16 @@ The dev server prints one line per call, plus anything server code logs:
 
 ```
 POST /api/notes/addNote 200 12ms
+```
+
+Every call is also saved, with its input, `console` lines and error stack, so you can read it
+back from another shell:
+
+```sh
+indent app logs              # the last 20 calls
+indent app logs -n 5 --errors
+indent app logs -f --path "notes/*"
+indent app logs --json | jq . # one object per call
 ```
 
 ## The 30 s limit
