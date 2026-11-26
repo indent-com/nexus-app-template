@@ -15,8 +15,9 @@ Each entry: what you see, then what to do.
   Decode with `structuredContent ?? JSON.parse(content[0].text)` and check `isError` first.
 - **Literal-union parameters fail only at runtime.** A wrong enum value typechecks and fails with
   `invalid_arguments`. Call each new tool once with curl before building on it.
-- **64 integration calls in flight per connection**, across every call running at once; the 65th
-  throws. Fan out with `map` (5 at a time by default), not `Promise.all` over a list.
+- **Integration calls past 64 at once wait.** A connection runs 64 at a time, across every call
+  running at once; the rest wait in order, and the wait counts against the 30 s limit. Fan out with
+  `map` (5 at a time by default), not `Promise.all` over a long list.
 - **`.me` is undefined in the emulator.** Apps that need the viewer's own account can't be tested
   locally yet.
 - **Secrets come from an untyped `process.env`**, and a missing one is `undefined`, not an error.
